@@ -1,0 +1,25 @@
+.nav {
+    display: flex;
+    align-items: center;
+    background-color: #168990;
+    height: 3em;
+}
+
+.logo {
+    width: 2.8em;
+    border-radius: 5px;
+}
+
+.titlegroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.tittle {
+    font-family: 'LoewNext-Bold';
+    -webkit-text-stroke: 0.2px black;
+    color: white; 
+    margin-left: 0.2em;
+}
+
+

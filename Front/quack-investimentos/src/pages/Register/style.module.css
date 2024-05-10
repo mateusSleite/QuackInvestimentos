@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .border {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    flex-direction: column;
+    margin-top: 10em;
+    width: 30em;
+    height: 35em;
+    border: solid 3px #168990;
+  }
+  
+  .tittle {
+    font-size: 2em;
+    font-family: 'LoewNext-Bold';
+  }
+  
+  .caixas {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em;
+  }
+  
+  .button {
+    background-color: #168990;
+    color: white;
+    margin-top: 1em;
+  }
+  
+  .input {
+    width: 25em;
+    margin-top: 0.2em;
+    height: 1.5em;
+    outline: none;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid;
+  }
+
+  .input2 {
+    width: 11.8em;
+    margin-top: 0.2em;
+    height: 1.5em;
+    outline: none;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid;
+  }
+  
+  .label {
+    font-size: 0.9em;
+    font-family: 'LoewNext-Light';
+  }
