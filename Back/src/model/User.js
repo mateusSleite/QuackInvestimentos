@@ -28,7 +28,7 @@ const User = mongoose.model(
     },
     extract: {
       type: Number,
-      required: true
+      required: false
     },
     createdAt: {
       type: Date,
