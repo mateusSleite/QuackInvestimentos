@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
 import style from "./style.module.css";
+import { useNavigate } from "react-router-dom";
 import { Container, Link } from "@mui/material";
 
 export const Register = () => {
   const [name, setName] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+  const [birth, setBirthdate] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Nome:", name);
-    console.log("Data de Nascimento:", birthdate);
+    console.log("Data de Nascimento:", birth);
     console.log("Email:", email);
     console.log("CPF:", cpf);
     console.log("Senha:", password);
@@ -26,9 +28,9 @@ export const Register = () => {
       password,
       confirmPassword,
       cpf,
-      birthdate
+      birth
     };
-    
+
     console.log(json);
     try {
       await axios.post("http://localhost:8080/api/user/register", json);
@@ -60,7 +62,7 @@ export const Register = () => {
               <input
                 className={style.input2}
                 type="date"
-                value={birthdate}
+                value={birth}
                 onChange={(e) => setBirthdate(e.target.value)}
               />
             </div>

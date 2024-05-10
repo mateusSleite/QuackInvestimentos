@@ -3,7 +3,6 @@ const User = require("../model/User");
 class UserController {
     static async register(req, res) {
         const { name, email, password, confirmPassword, cpf, birth } = req.body;
-
         if (!name) return res.status(400).json({ message: "Nome é obrigatório" });
         if (!email) return res.status(400).json({ message: "Email é obrigatório" });
         if (!password) return res.status(400).json({ message: "Senha é obrigatório" });
@@ -42,7 +41,6 @@ class UserController {
 
     static async login(req, res) {
         try {
-            // console.log(req.body);
             const { email, password } = req.body;
 
             if (!email || !password)

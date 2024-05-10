@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import { Container, Link } from "@mui/material";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Email:", email);
     console.log("Senha:", password);
+
+    const json = {
+      email,
+      password,
+    };
+
+    console.log(json);
+    try {
+      await axios.post("http://localhost:8080/api/user/login", json);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
