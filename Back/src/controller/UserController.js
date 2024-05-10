@@ -9,7 +9,7 @@ class UserController {
         if (!password) return res.status(400).json({ message: "Senha é obrigatório" });
         if (password != confirmPassword) return res.status(400).json({ message: "As senhas não são iguais" });
         if (!cpf) return res.status(400).json({ message: "CPF é obrigatório" });
-        if (!birth) return res.statuas(400).json({ message: "Data de nascimento é obrigatória" });
+        if (!birth) return res.status(400).json({ message: "Data de nascimento é obrigatória" });
 
         const emailExist = await User.findOne({ email: email });
         if (emailExist) return res.status(422).json({ message: "Já existe conta nesse e-mail" });

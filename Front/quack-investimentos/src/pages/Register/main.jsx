@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import style from "./style.module.css";
 import { Container, Link } from "@mui/material";
 
@@ -10,7 +11,7 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Nome:", name);
     console.log("Data de Nascimento:", birthdate);
@@ -18,6 +19,23 @@ export const Register = () => {
     console.log("CPF:", cpf);
     console.log("Senha:", password);
     console.log("Confirme a Senha:", confirmPassword);
+
+    const json = {
+      name,
+      email,
+      password,
+      confirmPassword,
+      cpf,
+      birthdate
+    };
+    
+    console.log(json);
+    try {
+      await axios.post("http://localhost:8080/api/user/register", json);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
