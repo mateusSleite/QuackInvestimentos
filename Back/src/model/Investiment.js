@@ -7,28 +7,32 @@ const Investiment = mongoose.model(
             type: String,
             required: true,
         },
-        NameInvestment: {
+        nameInvestment: {
             type: String,
-            required: true
+            required: false
         },
         value: {
             type: Number,
-            required: true
+            required: false
         },
         startDate: {
             type: Date,
-            required: true,
+            required: false,
         },
-        endStart: {
+        endDate: {
             type: Date,
-            required: true
+            required: false
         },
-        Category:{
+        category: {
             type: String,
-            required: true
+            required: false
         },
-        exitvalue:{
+        isInput: {
             type: Boolean,
+            required: false
+        },
+        extract: {
+            type: Number,
             required: false
         },
         createdAt: {

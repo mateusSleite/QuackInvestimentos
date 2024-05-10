@@ -14,7 +14,7 @@ export const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Nome:", name);
-    console.log("Data de Nascimento:", birthdate);
+    console.log("Data de Nascimento:", birth);
     console.log("Email:", email);
     console.log("CPF:", cpf);
     console.log("Senha:", password);
@@ -26,7 +26,7 @@ export const Register = () => {
       password,
       confirmPassword,
       cpf,
-      birthdate
+      birth
     };
     
     console.log(json);
@@ -60,7 +60,7 @@ export const Register = () => {
               <input
                 className={style.input2}
                 type="date"
-                value={birthdate}
+                value={birth}
                 onChange={(e) => setBirthdate(e.target.value)}
               />
             </div>

@@ -11,11 +11,11 @@ class UserController {
         if (!cpf) return res.status(400).json({ message: "CPF é obrigatório" });
         if (!birth) return res.status(400).json({ message: "Data de nascimento é obrigatória" });
 
-        const emailExist = await User.findOne({ email: email });
-        if (emailExist) return res.status(422).json({ message: "Já existe conta nesse e-mail" });
+        // const emailExist = await User.findOne({ email: email });
+        // if (emailExist) return res.status(422).json({ message: "Já existe conta nesse e-mail" });
 
-        const cpfExist = await User.findOne({ cpf: cpf });
-        if (cpfExist) return res.status(422).json({ message: "Já existe conta nesse cpf" });
+        // const cpfExist = await User.findOne({ cpf: cpf });
+        // if (cpfExist) return res.status(422).json({ message: "Já existe conta nesse cpf" });
 
 
         const user = new User({
