@@ -29,7 +29,7 @@ const Investiment = mongoose.model(
         },
         exitvalue:{
             type: Boolean,
-            required: true
+            required: false
         },
         createdAt: {
             type: Date,
