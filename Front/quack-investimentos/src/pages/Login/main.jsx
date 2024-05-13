@@ -16,7 +16,7 @@ export const Login = () => {
 
     const json = {
       email,
-      password,
+      password
     };
 
     console.log(json);

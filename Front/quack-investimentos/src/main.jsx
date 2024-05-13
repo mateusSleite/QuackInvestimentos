@@ -6,6 +6,7 @@ import { Login } from "./pages/Login/main.jsx";
 import { Header } from "./components/Header/main.jsx";
 import "./index.css";
 import { Register } from "./pages/Register/main.jsx";
+import { Home } from "./pages/Home/main.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/home",
+    element: <Home/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
