@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
-const config = require("config");
 
-module.exports = function () {
-  const db = config.get("db");
-  mongoose
-    .connect(db)
-    .then(() => console.log(`connected to ${db}`));
-};
+async function connectToDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_CONNECT_URI);
+    console.log("Connected to MongoDB Atlas");
+  } catch (error) {
+    console.error("Error connecting to MongoDB Atlas:", error);
+  }
+}
+
+module.exports = connectToDB;
