@@ -1,19 +1,23 @@
 import { Account } from "../../components/Account/main";
+import { Months } from "../../components/Months/main";
 import { Revenuer } from "../../components/Revenuer";
 import style from "./style.module.css";
-import { Container, Row, Col } from "@mui/material";
+import { Container, Grid, Typography } from '@mui/material';
 
 export const Home = () => {
   return (
     <Container>
-      <Row>
-        <Col>
-          <Account />
-        </Col>
-      </Row>
-      <Col>
-        <Revenuer />
-      </Col>
+      <Grid container spacing={0}>
+        <Grid item xs={6}>
+          <Account/>
+        </Grid>
+        <Grid item xs={6}>
+          <Revenuer/>
+        </Grid>
+        <Grid item xs={12}>
+          <Months/>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

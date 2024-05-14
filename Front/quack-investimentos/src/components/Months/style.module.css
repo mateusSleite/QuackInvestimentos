@@ -1,0 +1,47 @@
+.select {
+    background-color: #168990;
+    color: white;
+    width: 5rem;
+    border-radius: 2px;
+    height: 2.5em;
+    font-family: Rubik;
+    text-align: center;
+    border: 1px solid #168990;
+    outline: none;
+}
+
+.months {
+    display: flex;
+    justify-content: space-between;
+}
+
+.month {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #168990;
+    background-color: white;
+    width: 5em;
+    height: 2em;
+    font-family: Rubik;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px;
+    cursor: pointer;
+}
+
+.monthhover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #168990;
+    width: 5em;
+    height: 2em;
+    font-family: Rubik;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px;
+    cursor: pointer;
+}
