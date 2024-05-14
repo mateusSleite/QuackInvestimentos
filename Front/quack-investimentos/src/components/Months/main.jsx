@@ -15,7 +15,7 @@ export const Months = () => {
   ];
 
   return (
-    <Container sx={{ mt: 2, display: 'flex', paddingRight: 0 }}>
+    <Container sx={{ mt: 2, display: 'flex'}} style={{paddingRight: 0}}>
       <Grid container spacing={2}>
         <Grid item xs={1}>
           <select name="select" className={style.select} defaultValue="valor2">

@@ -1,4 +1,5 @@
 import { Account } from "../../components/Account/main";
+import { InfoInvestments } from "../../components/InfoInvestments/main";
 import { Months } from "../../components/Months/main";
 import { Revenuer } from "../../components/Revenuer";
 import style from "./style.module.css";
@@ -16,6 +17,9 @@ export const Home = () => {
         </Grid>
         <Grid item xs={12}>
           <Months/>
+        </Grid>
+        <Grid item xs={12}>
+          <InfoInvestments/>
         </Grid>
       </Grid>
     </Container>
