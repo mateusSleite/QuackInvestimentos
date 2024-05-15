@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    flex-direction: column;
     color: #168990;
     background-color: white;
     width: 100%;
@@ -20,9 +21,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10em;
+    height: 2em;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    border-bottom: none;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px; */
+}
+
+.container.opc2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 2em;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.20);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px;
+}
+
+.button {
+    background-color: #168990;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px;
+    color: white;
+    margin: 2em 0.25em 0em 0.25em;
+    outline: none;
+    text-decoration: none;
+}
+
+.border {
+    padding: 0.5em 1em 1em 1em; 
+    height: 80%;
+    background-color: transparent;
+}
+
+.border2 {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.30);
+}
+
+.spanCar {
+    color: rgba(0, 0, 0, 0.70);
+    font-weight: bold;
+}
+
+.spanInfo {
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 1.1em;
 }
