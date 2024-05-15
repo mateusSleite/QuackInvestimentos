@@ -33,7 +33,7 @@ export const Register = () => {
 
     console.log(json);
     try {
-      await axios.post("http://localhost:8080/api/user/register", json);
+      await axios.post("http://localhost:8080/user/register", json);
       navigate("/login");
     } catch (error) {
       console.log(error);
