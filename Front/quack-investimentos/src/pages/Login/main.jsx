@@ -21,7 +21,7 @@ export const Login = () => {
 
     console.log(json);
     try {
-      await axios.post("http://localhost:8080/api/user/login", json);
+      await axios.post("http://localhost:8080/user/login", json);
       navigate("/");
     } catch (error) {
       console.log(error);

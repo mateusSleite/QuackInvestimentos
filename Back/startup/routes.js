@@ -4,6 +4,6 @@ const investiment = require("../src/routes/Investiment")
 
 module.exports = function (app){
     app.use(express.json())
-        .use("/api/user", user)
-        .use("/api/investiment", investiment)
+        .use("/user", user)
+        .use("/investiment", investiment)
 }
