@@ -18,6 +18,9 @@ export const InfoInvestments = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
+  const overlay = show ? (
+    <div className={style.overlay} onClick={handleClose}></div>
+  ) : null;
   const [data, setData] = useState([
     {
       id: 1,
@@ -161,7 +164,11 @@ export const InfoInvestments = () => {
           ))}
         </div>
         <Grid>
-          <button className={style.button} style={{ marginLeft: "2em" }} onClick={handleShow}>
+          <button
+            className={style.button}
+            style={{ marginLeft: "2em" }}
+            onClick={handleShow}
+          >
             Adicionar
           </button>
           <button className={style.button} onClick={handleRemove}>
@@ -276,7 +283,10 @@ export const InfoInvestments = () => {
           </div>
         </div>
       </div>
-      <CustomModal show={show} onHide={handleClose} />
+      <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
+        {overlay}
+        <CustomModal show={show} onHide={handleClose} />
+      </Container>
     </Container>
   );
 };
