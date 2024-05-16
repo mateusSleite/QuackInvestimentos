@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import { Container, Grid, Checkbox } from "@mui/material";
+import { CustomModal } from "../CustomModal/main";
 
 const handlePreviousPage = (setCurrentPage) => {
   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -13,6 +14,9 @@ const handleNextPage = (setCurrentPage, totalPages) => {
 export const InfoInvestments = () => {
   const options = ["RECEBIMENTOS", "DESPESAS FIXAS", "DESPESAS VARIAVEIS"];
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
   const [data, setData] = useState([
     {
@@ -157,7 +161,7 @@ export const InfoInvestments = () => {
           ))}
         </div>
         <Grid>
-          <button className={style.button} style={{ marginLeft: "2em" }}>
+          <button className={style.button} style={{ marginLeft: "2em" }} onClick={handleShow}>
             Adicionar
           </button>
           <button className={style.button} onClick={handleRemove}>
@@ -249,9 +253,7 @@ export const InfoInvestments = () => {
               padding: "0.3em 0 0 1.2em",
             }}
           >
-            <span
-              style={{ color: "rgba(0, 0, 0, 0.70)", fontWeight: "bold" }}
-            >
+            <span style={{ color: "rgba(0, 0, 0, 0.70)", fontWeight: "bold" }}>
               Mostrando de {(currentPage - 1) * itemsPerPage + 1} até{" "}
               {Math.min(currentPage * itemsPerPage, data.length)} de{" "}
               {data.length} Registros
@@ -274,6 +276,7 @@ export const InfoInvestments = () => {
           </div>
         </div>
       </div>
+      <CustomModal show={show} onHide={handleClose} />
     </Container>
   );
 };

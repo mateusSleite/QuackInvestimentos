@@ -1,0 +1,13 @@
+.modal {
+    width: 65%;
+    height: 40em;
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgba(22, 137, 144, 0.70);
+}
+
+.junLabel {
+    display: flex;
+    flex-direction: column;
+}
