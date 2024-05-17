@@ -8,8 +8,10 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
+    setIsLoading(true)
     event.preventDefault();
     console.log("Email:", email);
     console.log("Senha:", password);
@@ -21,9 +23,11 @@ export const Login = () => {
 
     console.log(json);
     try {
-      await axios.post("http://localhost:8080/user/login", json);
-      navigate("/");
+    setIsLoading(false)
+      await axios.post("https://quack-investimentos-back.vercel.app/user/login", json);
+      navigate("/home");
     } catch (error) {
+      setIsLoading(false)
       console.log(error);
     }
   };
@@ -55,7 +59,7 @@ export const Login = () => {
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <button className={style.button} type="submit">
-              Entrar
+             {isLoading ? "Loading..." : "Entrar"}
             </button>
           </div>
         </form>

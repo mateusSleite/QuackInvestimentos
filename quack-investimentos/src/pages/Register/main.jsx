@@ -33,7 +33,7 @@ export const Register = () => {
 
     console.log(json);
     try {
-      await axios.post("http://localhost:8080/user/register", json);
+      await axios.post("https://quack-investimentos-back.vercel.app/user/register", json);
       navigate("/login");
     } catch (error) {
       console.log(error);
