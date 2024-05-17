@@ -62,18 +62,20 @@ export const InfoInvestments = () => {
   };
 
   const handleRemove = () => {
-    console.log(selectedItems)
     const removeRequests = selectedItems.map((id) =>
-      axios
-        .delete(`${baseURL}/delete/?id=${id}`)
-        .then((response) => {
-          SetAttStatus(!attStatus);
-        })
-        .catch((error) => {
-          console.error("Erro durante a solicitação de exclusão:", error);
-        })
+      axios.delete(`${baseURL}/delete/?id=${id}`).catch((error) => {
+        console.error("Erro durante a solicitação de exclusão:", error);
+      })
     );
-    setSelectedItems([]);
+
+    Promise.all(removeRequests)
+      .then(() => {
+        SetAttStatus(!attStatus);
+        setSelectedItems([]);
+      })
+      .catch((error) => {
+        console.error("Erro ao remover itens selecionados:", error);
+      });
   };
 
   const getCurrentPageData = () => {
@@ -167,6 +169,7 @@ export const InfoInvestments = () => {
                 const formatoDataEnd = formatDate(dataEnd);
                 return (
                   <Grid
+                    key={item._id}
                     sx={{
                       display: "flex",
                       alignItems: "center",
@@ -177,7 +180,6 @@ export const InfoInvestments = () => {
                     }}
                     item
                     xs={12}
-                    key={item.id}
                   >
                     <Grid item xs={0.5}>
                       <Checkbox
