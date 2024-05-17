@@ -20,22 +20,24 @@ export const CustomModal = ({ show, onHide }) => {
           <Grid container sx={{ mt: 3 }}>
             <Grid item xs={12} md={6}>
               <div className={style.junLabel}>
-                <span className={style.label}>Descrição:</span>
+                <span className={style.label}>Nome:</span>
                 <textarea className={style.textArea}></textarea>
               </div>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <div className={style.junLabel}>
-                <span className={style.label}>Vencimento:</span>
-                <input type="date" className={style.inputDate}></input>
-              </div>
-            </Grid>
-          </Grid>
-          <Grid container>
+
             <Grid item xs={12} md={6}>
               <div className={style.junLabel}>
                 <span className={style.label}>Valor:</span>
                 <input type="number" className={style.inputText}></input>
+              </div>
+            </Grid>
+           
+          </Grid>
+          <Grid container>
+          <Grid item xs={12} md={6}>
+              <div className={style.junLabel}>
+                <span className={style.label}>Vencimento:</span>
+                <input type="date" className={style.inputDate}></input>
               </div>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -55,6 +57,27 @@ export const CustomModal = ({ show, onHide }) => {
             <Grid item xs={12} md={6}>
               <div className={style.junLabel}>
                 <span className={style.label}>Pago:</span>
+                <select
+                  name="select"
+                  className={style.select}
+                  defaultValue="valor2"
+                >
+                  <option value="valor1">SIM</option>
+                  <option value="valor2">NÃO</option>
+                </select>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <div className={style.junLabel}>
+                <span className={style.label}>Classificação:</span>
+                <input className={style.inputText}></input>
+              </div>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <div className={style.junLabel}>
+                <span className={style.label}>3213:</span>
                 <select
                   name="select"
                   className={style.select}
