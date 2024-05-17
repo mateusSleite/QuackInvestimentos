@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import { Container, Grid, Checkbox } from "@mui/material";
 import { CustomModal } from "../CustomModal/main";
 import axios from "axios";
+import { DescriptionModal } from "../DescriptionModal/main";
 
 const handlePreviousPage = (setCurrentPage) => {
   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -18,7 +19,10 @@ export const InfoInvestments = () => {
   const options = ["RECEBIMENTOS", "DESPESAS FIXAS", "DESPESAS VARIAVEIS"];
 
   const [show, setShow] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [attStatus, SetAttStatus] = useState(false);
+  const handleCloseDetails = () => setShowDetails(false);
+  const handleShowDetails = () => setShowDetails(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
@@ -192,27 +196,29 @@ export const InfoInvestments = () => {
                         onChange={() => handleCheckboxChange(item._id)}
                       />
                     </Grid>
-                    <Grid item xs={2}>
-                      <span className={style.spanInfo}>
-                        {item.nameInvestment}
-                      </span>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <span className={style.spanInfo}>{item.value}</span>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <span className={style.spanInfo}>{formatoData}</span>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <span className={style.spanInfo}>{formatoDataEnd}</span>
-                    </Grid>
-                    <Grid item xs={2.5}>
-                      <span className={style.spanInfo}>{item.category}</span>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <span className={style.spanInfo}>
-                        {item.isInput ? "Entrada" : "Saída"}
-                      </span>
+                    <Grid item xs={11.5} sx={{display: "flex", cursor: 'default'}} onClick={() => handleShowDetails()}>
+                      <Grid item xs={2.1}>
+                        <span className={style.spanInfo}>
+                          {item.nameInvestment}
+                        </span>
+                      </Grid>
+                      <Grid item xs={1}>
+                        <span className={style.spanInfo}>{item.value}</span>
+                      </Grid>
+                      <Grid item xs={2.1}>
+                        <span className={style.spanInfo}>{formatoData}</span>
+                      </Grid>
+                      <Grid item xs={2.1}>
+                        <span className={style.spanInfo}>{formatoDataEnd}</span>
+                      </Grid>
+                      <Grid item xs={2.6}>
+                        <span className={style.spanInfo}>{item.category}</span>
+                      </Grid>
+                      <Grid item xs={1}>
+                        <span className={style.spanInfo}>
+                          {item.isInput ? "Entrada" : "Saída"}
+                        </span>
+                      </Grid>
                     </Grid>
                   </Grid>
                 );
@@ -254,6 +260,10 @@ export const InfoInvestments = () => {
       <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
         {overlay}
         <CustomModal show={show} onHide={handleClose} />
+      </Container>
+      <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
+        {overlay}
+        <DescriptionModal show={showDetails} onHide={handleCloseDetails} />
       </Container>
     </Container>
   );
