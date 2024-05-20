@@ -180,7 +180,7 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange })
                       </Grid>
                       <Grid item xs={1}>
                         <span className={style.spanInfo}>
-                          {item.isInput ? "Entrada" : "Saída"}
+                          {item.isInput === null ? "" : item.isInput ? "Entrada" : "Saída"}
                         </span>
                       </Grid>
                     </Grid>
