@@ -1,8 +1,28 @@
 .modal {
-    width: 45%;
-    height: 22em;
-    position: relative;
-    background-color: white;
-    border-radius: 10px;
-    border: 3px solid rgba(22, 137, 144, 0.70);
+  width: 50%;
+  height: 28em;
+  background-color: white;
+  border-radius: 10px;
+  border: 3px solid rgba(22, 137, 144, 0.7);
+}
+
+.label {
+  color: rgba(22, 137, 144, 0.7);
+  font-weight: bold;
+  margin-top: 0.5em;
+  font-size: 1.2em;
+  -webkit-text-stroke: 0.2px black;
+}
+
+.labelnome {
+  color: rgba(22, 137, 144, 0.7);
+  font-weight: bold;
+  font-size: 2em;
+  -webkit-text-stroke: 0.2px black;
+}
+
+.descnome {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 2em;
+  -webkit-text-stroke: 0.2px black;
 }

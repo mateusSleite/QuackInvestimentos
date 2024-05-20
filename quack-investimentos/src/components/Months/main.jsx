@@ -4,6 +4,7 @@ import style from "./style.module.css";
 
 export const Months = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
+  const [apiData, setApiData] = useState([]);
 
   const handleMonthSelect = (month) => {
     setSelectedMonth(month);
@@ -18,7 +19,7 @@ export const Months = () => {
     <Container sx={{ mt: 2, display: 'flex'}} style={{paddingRight: 0}}>
       <Grid container spacing={2}>
         <Grid item xs={1}>
-          <select name="select" className={style.select} defaultValue="valor2">
+          <select name="select" className={style.select} defaultValue="valor3">
             <option value="valor1">2022</option>
             <option value="valor2">2023</option>
             <option value="valor3">2024</option>
