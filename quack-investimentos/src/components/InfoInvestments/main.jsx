@@ -196,7 +196,7 @@ export const InfoInvestments = () => {
                         onChange={() => handleCheckboxChange(item._id)}
                       />
                     </Grid>
-                    <Grid item xs={11.5} sx={{display: "flex", cursor: 'default'}} onClick={() => handleShowDetails()}>
+                    <Grid item xs={11.5} sx={{ display: "flex", cursor: 'default' }} onClick={() => handleShowDetails()}>
                       <Grid item xs={2.1}>
                         <span className={style.spanInfo}>
                           {item.nameInvestment}
@@ -216,7 +216,7 @@ export const InfoInvestments = () => {
                       </Grid>
                       <Grid item xs={1}>
                         <span className={style.spanInfo}>
-                          {item.isInput ? "Entrada" : "Saída"}
+                          {item.isInput === null ? "" : item.isInput ? "Entrada" : "Saída"}
                         </span>
                       </Grid>
                     </Grid>
