@@ -3,7 +3,6 @@ import style from "./style.module.css";
 import { Container, Grid, Checkbox } from "@mui/material";
 import { CustomModal } from "../CustomModal/main";
 import { DescriptionModal } from "../DescriptionModal/main";
-import axios from "axios";
 
 const handlePreviousPage = (setCurrentPage) => {
   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
