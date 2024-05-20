@@ -11,8 +11,9 @@ const baseURL = "https://quack-investimentos-back.vercel.app/investments";
 
 export const Home = () => {
   const [apiData, setApiData] = useState([]);
-  const [attStatus, SetAttStatus] = useState(false);
+  const [attStatus, setAttStatus] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,9 +21,9 @@ export const Home = () => {
         const response = await axios.get(`${baseURL}/getall`);
         const data = response.data;
 
-        const newData = data.map((item, index) => {
-          return { ...item, index: index + 1 };
-        });
+        const newData = data
+          .filter((item) => item.classification === selectedCategory)
+          .map((item, index) => ({ ...item, index: index + 1 }));
 
         setApiData(newData);
       } catch (error) {
@@ -30,7 +31,7 @@ export const Home = () => {
       }
     };
     fetchData();
-  }, [attStatus]);
+  }, [attStatus, selectedCategory]);
 
   const handleCheckboxChange = (id) => {
     if (selectedItems.includes(id)) {
@@ -46,13 +47,10 @@ export const Home = () => {
         console.error("Erro durante a solicitação de exclusão:", error);
       })
     );
-      
-    console.log(removeRequests)
-
 
     Promise.all(removeRequests)
       .then(() => {
-        SetAttStatus(!attStatus);
+        setAttStatus(!attStatus);
         setSelectedItems([]);
       })
       .catch((error) => {
@@ -75,10 +73,10 @@ export const Home = () => {
         <Grid item xs={12}>
           <InfoInvestments 
             apiData={apiData} 
-            attStatus={attStatus} 
-            setAttStatus={SetAttStatus} 
             handleRemove={handleRemove} 
             handleCheckboxChange={handleCheckboxChange}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
           />
         </Grid>
       </Grid>

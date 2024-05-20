@@ -144,11 +144,12 @@ export const CustomModal = ({ show, onHide }) => {
                     defaultValue="fixo"
                     onChange={(e) => {
                       const selectedValue = e.target.value;
-                      setClassification(selectedValue === "fixo" || selectedValue === "variavel" ? selectedValue : null);
+                      setClassification(selectedValue === "RECEBIMENTOS" || selectedValue === "DESPESAS FIXAS" || selectedValue === "DESPESAS VARIAVEIS" ? selectedValue : null);
                     }}>
                     <option value="">Selecione...</option>
-                    <option value="fixo">Renda Fixa</option>
-                    <option value="variavel">Renda Variável</option>
+                    <option value="RECEBIMENTOS">Recebimentos</option>
+                    <option value="DESPESAS FIXAS">Renda Fixa</option>
+                    <option value="DESPESAS VARIAVEIS">Renda Variável</option>
                   </select>
                 </div>
               </Grid>

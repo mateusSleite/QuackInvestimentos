@@ -15,13 +15,12 @@ const handleNextPage = (setCurrentPage, totalPages) => {
 
 const baseURL = "https://quack-investimentos-back.vercel.app/investments";
 
-export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange }) => {
+export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, selectedCategory, setSelectedCategory}) => {
   const options = ["RECEBIMENTOS", "DESPESAS FIXAS", "DESPESAS VARIAVEIS"];
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState();
   const [showDetails, setShowDetails] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
   const [selectedItems, setSelectedItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
@@ -102,7 +101,7 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange })
         </Grid>
         <div style={{ display: "flex", padding: "1.2em 1em 0 1em" }}>
           <Grid item xs={0.5}></Grid>
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <span className={style.spanCar}>Nome:</span>
           </Grid>
           <Grid item xs={1}>
@@ -161,7 +160,7 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange })
                       />
                     </Grid>
                     <Grid item xs={11.5} sx={{display: "flex", cursor: 'default'}} onClick={() => handleShowDetails(item._id)}>
-                      <Grid item xs={2.1}>
+                      <Grid item xs={2.5}>
                         <span className={style.spanInfo}>
                           {item.nameInvestment}
                         </span>
