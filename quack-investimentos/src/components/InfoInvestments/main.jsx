@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./style.module.css";
 import { Container, Grid, Checkbox } from "@mui/material";
 import { CustomModal } from "../CustomModal/main";
-import axios from "axios";
 import { DescriptionModal } from "../DescriptionModal/main";
+import axios from "axios";
 
 const handlePreviousPage = (setCurrentPage) => {
   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -15,71 +15,28 @@ const handleNextPage = (setCurrentPage, totalPages) => {
 
 const baseURL = "https://quack-investimentos-back.vercel.app/investments";
 
-export const InfoInvestments = () => {
+export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange }) => {
   const options = ["RECEBIMENTOS", "DESPESAS FIXAS", "DESPESAS VARIAVEIS"];
 
   const [show, setShow] = useState(false);
+  const [id, setId] = useState();
   const [showDetails, setShowDetails] = useState(false);
-  const [attStatus, SetAttStatus] = useState(false);
-  const handleCloseDetails = () => setShowDetails(false);
-  const handleShowDetails = () => setShowDetails(true);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
-  const [apiData, setApiData] = useState([]);
-  const overlay = show ? (
-    <div className={style.overlay} onClick={handleClose}></div>
-  ) : null;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/getall`);
-        const data = response.data;
-        const newData = data.map((item, index) => {
-          return { ...item, index: index + 1 };
-        });
-
-        setApiData(newData);
-      } catch (error) {
-        console.error("Erro ao buscar dados da API:", error);
-      }
-    };
-    fetchData();
-  }, [attStatus]);
-
   const [selectedItems, setSelectedItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
   const totalPages = Math.ceil(apiData.length / itemsPerPage);
 
+  const handleCloseDetails = () => setShowDetails(false);
+  const handleShowDetails = (idPar) => {
+    setId(idPar);
+    setShowDetails(true);
+  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-  };
-
-  const handleCheckboxChange = (id) => {
-    if (selectedItems.includes(id)) {
-      setSelectedItems(selectedItems.filter((item) => item !== id));
-    } else {
-      setSelectedItems([...selectedItems, id]);
-    }
-  };
-
-  const handleRemove = () => {
-    const removeRequests = selectedItems.map((id) =>
-      axios.delete(`${baseURL}/delete/?id=${id}`).catch((error) => {
-        console.error("Erro durante a solicitação de exclusão:", error);
-      })
-    );
-
-    Promise.all(removeRequests)
-      .then(() => {
-        SetAttStatus(!attStatus);
-        setSelectedItems([]);
-      })
-      .catch((error) => {
-        console.error("Erro ao remover itens selecionados:", error);
-      });
   };
 
   const getCurrentPageData = () => {
@@ -94,6 +51,13 @@ export const InfoInvestments = () => {
     const ano = data.getFullYear();
     return `${dia}-${mes}-${ano}`;
   };
+
+  const overlay = show ? (
+    <div className={style.overlay} onClick={handleClose}></div>
+  ) : null;
+  const overlayDetails = showDetails ? (
+    <div className={style.overlay} onClick={handleCloseDetails}></div>
+  ) : null;
 
   return (
     <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
@@ -196,7 +160,7 @@ export const InfoInvestments = () => {
                         onChange={() => handleCheckboxChange(item._id)}
                       />
                     </Grid>
-                    <Grid item xs={11.5} sx={{display: "flex", cursor: 'default'}} onClick={() => handleShowDetails()}>
+                    <Grid item xs={11.5} sx={{display: "flex", cursor: 'default'}} onClick={() => handleShowDetails(item._id)}>
                       <Grid item xs={2.1}>
                         <span className={style.spanInfo}>
                           {item.nameInvestment}
@@ -262,8 +226,8 @@ export const InfoInvestments = () => {
         <CustomModal show={show} onHide={handleClose} />
       </Container>
       <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
-        {overlay}
-        <DescriptionModal show={showDetails} onHide={handleCloseDetails} />
+        {overlayDetails}
+        <DescriptionModal show={showDetails} onHide={handleCloseDetails} id={id}/>
       </Container>
     </Container>
   );
