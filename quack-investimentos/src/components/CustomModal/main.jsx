@@ -83,8 +83,10 @@ export const CustomModal = ({ show, onHide }) => {
                     className={style.inputDate}
                     onChange={(e) => {
                       const dateValue = e.target.value;
-                      setStartDate(dateValue ? new Date(dateValue) : null);
-                    }} />
+                      const parsedDate = dateValue ? new Date(dateValue) : null;
+                      setStartDate(parsedDate);
+                  }}
+                   />
 
                 </div>
               </Grid>
@@ -96,8 +98,9 @@ export const CustomModal = ({ show, onHide }) => {
                     className={style.inputDate}
                     onChange={(e) => {
                       const dateValue = e.target.value;
-                      setEndDate(dateValue !== "" ? new Date(dateValue) : "");
-                    }} />
+                      const parsedDate = dateValue ? new Date(dateValue) : null;
+                      setStartDate(parsedDate);
+                  }} />
 
                 </div>
               </Grid>

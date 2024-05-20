@@ -44,8 +44,10 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange })
     const endIndex = startIndex + itemsPerPage;
     return apiData.slice(startIndex, endIndex);
   };
-
+//arrumar para data null
   const formatDate = (data) => {
+    console.log(data)
+    console.log("data")
     const dia = ("0" + data.getDate()).slice(-2);
     const mes = ("0" + (data.getMonth() + 1)).slice(-2);
     const ano = data.getFullYear();
@@ -131,6 +133,8 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange })
           <div className={style.border}>
             <div className={style.border2}>
               {getCurrentPageData().map((item) => {
+                console.log("Erro", item.startDate)
+                console.log()
                 const data = new Date(item.startDate);
                 const formatoData = formatDate(data);
                 const dataEnd = new Date(item.endDate);
