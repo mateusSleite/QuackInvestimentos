@@ -2,13 +2,7 @@ import { useState } from "react";
 import { Container, Grid } from "@mui/material";
 import style from "./style.module.css";
 
-export const Months = () => {
-  const [selectedMonth, setSelectedMonth] = useState('');
-  const [apiData, setApiData] = useState([]);
-
-  const handleMonthSelect = (month) => {
-    setSelectedMonth(month);
-  };
+export const Months = ({ handleMonthSelect, handleYearSelect, selectedYear, selectedMonth }) => {
 
   const months = [
     "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
@@ -19,10 +13,10 @@ export const Months = () => {
     <Container sx={{ mt: 2, display: 'flex'}} style={{paddingRight: 0}}>
       <Grid container spacing={2}>
         <Grid item xs={1}>
-          <select name="select" className={style.select} defaultValue="valor3">
-            <option value="valor1">2022</option>
-            <option value="valor2">2023</option>
-            <option value="valor3">2024</option>
+          <select name="select" className={style.select} value={selectedYear} onChange={handleYearSelect}>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
           </select>
         </Grid>
         <Grid item xs={11}>
