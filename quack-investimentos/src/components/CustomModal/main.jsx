@@ -2,7 +2,7 @@ import { Modal } from "react-bootstrap";
 import { Container, Grid } from "@mui/material";
 import CancelIcon from '@mui/icons-material/Cancel';
 import style from "./style.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const CustomModal = ({ show, onHide }) => {
@@ -14,7 +14,17 @@ export const CustomModal = ({ show, onHide }) => {
   const [category, setCategory] = useState("");
   const [classification, setClassification] = useState("");
   const [isInput, setIsInput] = useState(null);
-  const [userId, setUserId] = useState("dsad");
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+      console.log("UserId set from localStorage:", storedUserId);
+    } else {
+      console.error("UserId not found in localStorage");
+    }
+  }, []);
 
   const handleCreate = async (event) => {
     event.preventDefault();
@@ -34,9 +44,10 @@ export const CustomModal = ({ show, onHide }) => {
       console.log("JSON enviado:", json);
       await axios.post("https://quack-investimentos-back.vercel.app/investments/create", json)
       onHide();
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log("Erro ao criar investimento:", error);
+      console.log(json)
     }
   }
 

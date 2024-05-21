@@ -34,34 +34,42 @@ export const Home = () => {
         "Dez": "12"
       };
 
-      try {
-        const response = await axios.get(`${baseURL}/getall`);
-        const data = response.data;
-        const filteredData = data.filter((item) => {
-          const itemDate = new Date(item.createdAt);
-          const itemMonth = (itemDate.getMonth() + 1)
-            .toString()
-            .padStart(2, "0");
-          const itemYear = itemDate.getFullYear().toString();
-          
-          const monthCondition = selectedMonth
-            ? itemMonth === monthMap[selectedMonth]
-            : true;
+      const storedUserId = localStorage.getItem('userId');
+      console.log("UserId from localStorage:", storedUserId);
 
-          return (
-            item.classification === selectedCategory &&
-            monthCondition &&
-            itemYear.toString() === selectedYear
-          );
-        });
+      if (storedUserId) {
+        try {
+          const response = await axios.get(`${baseURL}/getall/?user=${storedUserId}`);
+          console.log("response", response)
+          const data = response.data;
+          const filteredData = data.filter((item) => {
+            const itemDate = new Date(item.createdAt);
+            const itemMonth = (itemDate.getMonth() + 1)
+              .toString()
+              .padStart(2, "0");
+            const itemYear = itemDate.getFullYear().toString();
+            
+            const monthCondition = selectedMonth
+              ? itemMonth === monthMap[selectedMonth]
+              : true;
 
-        const newData = filteredData.map((item, index) => ({
-          ...item,
-          index: index + 1,
-        }));
-        setApiData(newData);
-      } catch (error) {
-        console.error("Erro ao buscar dados da API:", error);
+            return (
+              item.classification === selectedCategory &&
+              monthCondition &&
+              itemYear.toString() === selectedYear
+            );
+          });
+
+          const newData = filteredData.map((item, index) => ({
+            ...item,
+            index: index + 1,
+          }));
+          setApiData(newData);
+        } catch (error) {
+          console.error("Erro ao buscar dados da API:", error);
+        }
+      } else {
+        console.log("UserId not found in LocalStorage");
       }
     };
 
