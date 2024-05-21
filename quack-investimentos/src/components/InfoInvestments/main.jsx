@@ -14,7 +14,7 @@ const handleNextPage = (setCurrentPage, totalPages) => {
 
 const baseURL = "https://quack-investimentos-back.vercel.app/investments";
 
-export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, selectedCategory, setSelectedCategory}) => {
+export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, selectedCategory, setSelectedCategory }) => {
   const options = ["RECEBIMENTOS", "DESPESAS FIXAS", "DESPESAS VARIAVEIS"];
 
   const [show, setShow] = useState(false);
@@ -42,13 +42,16 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
     const endIndex = startIndex + itemsPerPage;
     return apiData.slice(startIndex, endIndex);
   };
-//arrumar para data null
+  
   const formatDate = (data) => {
-    console.log(data)
-    console.log("data")
+    console.log("data: ", data)
     const dia = ("0" + data.getDate()).slice(-2);
     const mes = ("0" + (data.getMonth() + 1)).slice(-2);
     const ano = data.getFullYear();
+
+    if (ano < 1980)
+      return  " ";
+
     return `${dia}/${mes}/${ano}`;
   };
 
@@ -162,7 +165,7 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
                         onChange={() => handleCheckboxChange(item._id)}
                       />
                     </Grid>
-                    <Grid item xs={11.5} sx={{display: "flex", cursor: 'default'}} onClick={() => handleShowDetails(item._id)}>
+                    <Grid item xs={11.5} sx={{ display: "flex", cursor: 'default' }} onClick={() => handleShowDetails(item._id)}>
                       <Grid item xs={2.5}>
                         <span className={style.spanInfo}>
                           {item.nameInvestment}
@@ -229,7 +232,7 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
       </Container>
       <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
         {overlayDetails}
-        <DescriptionModal show={showDetails} onHide={handleCloseDetails} id={id}/>
+        <DescriptionModal show={showDetails} onHide={handleCloseDetails} id={id} />
       </Container>
     </Container>
   );

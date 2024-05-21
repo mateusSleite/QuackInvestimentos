@@ -34,7 +34,7 @@ export const CustomModal = ({ show, onHide }) => {
       console.log("JSON enviado:", json);
       await axios.post("https://quack-investimentos-back.vercel.app/investments/create", json)
       onHide();
-      
+      window.location.reload();
     } catch (error) {
       console.log("Erro ao criar investimento:", error);
     }
@@ -99,7 +99,7 @@ export const CustomModal = ({ show, onHide }) => {
                     onChange={(e) => {
                       const dateValue = e.target.value;
                       const parsedDate = dateValue ? new Date(dateValue) : null;
-                      setStartDate(parsedDate);
+                      setEndDate(parsedDate);
                   }} />
 
                 </div>
