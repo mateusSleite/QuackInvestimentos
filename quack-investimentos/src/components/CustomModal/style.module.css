@@ -1,6 +1,6 @@
 .modal {
     width: 45%;
-    height: 29em;
+    height: 28em;
     position: relative;
     background-color: white;
     border-radius: 10px;
@@ -10,11 +10,11 @@
 .junLabel {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin-left: 2em;
 }
 
 .inputText {
-    width: 80%;
+    width: 90%;
     height: 2em;
     border-radius: 4px;
     outline: none;
@@ -28,7 +28,7 @@
 }
 
 .textArea {
-    width: 80%;
+    width: 94%;
     height: 6em;
     border-radius: 4px;
     outline: none;
@@ -37,7 +37,7 @@
 }
 
 .inputDate {
-    width: 80%;
+    width: 90%;
     height: 2em;
     border-radius: 4px;
     outline: none;
@@ -45,8 +45,8 @@
 }
 
 .select {
-    width: 80%;
-    height: 2em;
+    width: 90%;
+    height: 2.4em;
     outline: none;
     border-radius: 4px;
     border: 1px solid rgba(22, 137, 144, 0.70);
@@ -65,8 +65,50 @@
     text-decoration: none;
 }
 
+.details {
+    padding: 0 0.5em 0 0.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+    border-radius: 5px;
+    position: relative;
+}
+
+.details::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid rgba(22, 137, 144, 0.70);
+    border-right: 2px solid rgba(22, 137, 144, 0.70);
+    width: 20%;
+    height: 50%;
+    border-radius: 0 0 5px 0;
+}
+
+.details::after {
+    content: '';
+    position: absolute;
+    bottom: 0.6em;
+    left: 0;
+    border-top: 2px solid rgba(22, 137, 144, 0.70);
+    border-left: 2px solid rgba(22, 137, 144, 0.70);
+    width: 20%;
+    height: 50%;
+    border-radius: 5px 0 0 0;
+}
+
+
+.category {
+    font-size: 1.2em;
+    color: rgba(0, 0, 0, 0.70);
+    font-weight: bold;
+}
+
 .button:focus,
 .button:hover {
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.20);
 }
+

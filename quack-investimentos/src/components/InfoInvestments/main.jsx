@@ -227,7 +227,7 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
       </div>
       <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
         {overlay}
-        <CustomModal show={show} onHide={handleClose} />
+        <CustomModal show={show} onHide={handleClose} selectedCategory={selectedCategory}/>
       </Container>
       <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
         {overlayDetails}
