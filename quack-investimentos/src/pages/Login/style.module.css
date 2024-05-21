@@ -35,7 +35,7 @@
 .input {
   width: 25em;
   margin-top: 0.2em;
-  height: 1.5em;
+  height: 2em;
   outline: none;
   text-decoration: none;
   border-radius: 5px;
@@ -43,5 +43,5 @@
 }
 
 .label {
-  font-family: 'LoewNext-Light';
+  font-family: 'Cabin';
 }
