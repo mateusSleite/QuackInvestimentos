@@ -14,24 +14,59 @@ export const Home = () => {
   const [attStatus, setAttStatus] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedYear, setSelectedYear] = useState("2024");
 
   useEffect(() => {
     const fetchData = async () => {
+      const monthMap = {
+        "Jan": "01",
+        "Fev": "02",
+        "Mar": "03",
+        "Abr": "04",
+        "Mai": "05",
+        "Jun": "06",
+        "Jul": "07",
+        "Ago": "08",
+        "Set": "09",
+        "Out": "10",
+        "Nov": "11",
+        "Dez": "12"
+      };
+
       try {
         const response = await axios.get(`${baseURL}/getall`);
         const data = response.data;
+        const filteredData = data.filter((item) => {
+          const itemDate = new Date(item.createdAt);
+          const itemMonth = (itemDate.getMonth() + 1)
+            .toString()
+            .padStart(2, "0");
+          const itemYear = itemDate.getFullYear().toString();
+          
+          const monthCondition = selectedMonth
+            ? itemMonth === monthMap[selectedMonth]
+            : true;
 
-        const newData = data
-          .filter((item) => item.classification === selectedCategory)
-          .map((item, index) => ({ ...item, index: index + 1 }));
+          return (
+            item.classification === selectedCategory &&
+            monthCondition &&
+            itemYear.toString() === selectedYear
+          );
+        });
 
+        const newData = filteredData.map((item, index) => ({
+          ...item,
+          index: index + 1,
+        }));
         setApiData(newData);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error);
       }
     };
+
     fetchData();
-  }, [attStatus, selectedCategory]);
+  }, [attStatus, selectedCategory, selectedMonth, selectedYear]);
 
   const handleCheckboxChange = (id) => {
     if (selectedItems.includes(id)) {
@@ -58,6 +93,14 @@ export const Home = () => {
       });
   };
 
+  const handleMonthSelect = (month) => {
+    setSelectedMonth(month);
+  };
+
+  const handleYearSelect = (event) => {
+    setSelectedYear(event.target.value);
+  };
+
   return (
     <Container>
       <Grid container spacing={0}>
@@ -68,12 +111,17 @@ export const Home = () => {
           <Revenuer />
         </Grid>
         <Grid item xs={12}>
-          <Months />
+          <Months
+            handleMonthSelect={handleMonthSelect}
+            handleYearSelect={handleYearSelect}
+            selectedYear={selectedYear}
+            selectedMonth={selectedMonth}
+          />
         </Grid>
         <Grid item xs={12}>
-          <InfoInvestments 
-            apiData={apiData} 
-            handleRemove={handleRemove} 
+          <InfoInvestments
+            apiData={apiData}
+            handleRemove={handleRemove}
             handleCheckboxChange={handleCheckboxChange}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
