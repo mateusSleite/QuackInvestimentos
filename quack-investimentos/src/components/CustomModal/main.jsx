@@ -48,7 +48,7 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
         json
       );
       onHide();
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.log("Erro ao criar investimento:", error);
       console.log(json)
@@ -95,19 +95,20 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
                 ></CancelIcon>
               </div>
             </Grid>
-            <div style={{position: 'relative', bottom: '1em'}}>
+            <div style={{ position: 'relative', bottom: '1em' }}>
               <Grid container>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={12}>
                   <div className={style.junLabel}>
                     <span className={style.label}>Nome:</span>
                     <input
-                      className={style.inputText}
+                      className={style.inputName}
                       onChange={(e) => setnameInvestment(e.target.value)}
                     />
                   </div>
-                </Grid>
-
-                <Grid item xs={12} md={6}>
+                </Grid>            
+              </Grid>
+              <Grid container>
+              <Grid item xs={12} md={6}>
                   <div className={style.junLabel}>
                     <span className={style.label}>Valor:</span>
                     <input
@@ -116,8 +117,6 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
                     />
                   </div>
                 </Grid>
-              </Grid>
-              <Grid container>
                 <Grid item xs={12} md={6}>
                   <div className={style.junLabel}>
                     <span className={style.label}>Data Início:</span>
@@ -130,22 +129,6 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
                           ? new Date(dateValue)
                           : null;
                         setStartDate(parsedDate);
-                      }}
-                    />
-                  </div>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <div className={style.junLabel}>
-                    <span className={style.label}>Data Final:</span>
-                    <input
-                      type="date"
-                      className={style.inputDate}
-                      onChange={(e) => {
-                        const dateValue = e.target.value;
-                        const parsedDate = dateValue
-                          ? new Date(dateValue)
-                          : null;
-                        setEndDate(parsedDate);
                       }}
                     />
                   </div>

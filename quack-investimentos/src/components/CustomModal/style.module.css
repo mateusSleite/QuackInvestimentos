@@ -20,6 +20,13 @@
     outline: none;
     border: 1px solid rgba(22, 137, 144, 0.70);
 }
+.inputName {
+    width: 94.8%;
+    height: 2em;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid rgba(22, 137, 144, 0.70);
+}
 
 .label {
     color: rgba(0, 0, 0, 0.70);
