@@ -35,9 +35,11 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
       startDate,
       endDate,
       category,
-      selectedCategory,
+      classification: selectedCategory,
       isInput,
     };
+
+    console.log(json)
 
     try {
       console.log("JSON enviado:", json);
@@ -109,7 +111,6 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
                   <div className={style.junLabel}>
                     <span className={style.label}>Valor:</span>
                     <input
-                      type="number"
                       className={style.inputText}
                       onChange={(e) => setValue(parseFloat(e.target.value))}
                     />
