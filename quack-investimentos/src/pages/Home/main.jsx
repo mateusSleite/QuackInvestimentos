@@ -13,6 +13,7 @@ export const Home = () => {
   const [apiData, setApiData] = useState([]);
   const [attStatus, setAttStatus] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [saldo, setSaldo] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("2024");
@@ -20,35 +21,40 @@ export const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const monthMap = {
-        "Jan": "01",
-        "Fev": "02",
-        "Mar": "03",
-        "Abr": "04",
-        "Mai": "05",
-        "Jun": "06",
-        "Jul": "07",
-        "Ago": "08",
-        "Set": "09",
-        "Out": "10",
-        "Nov": "11",
-        "Dez": "12"
+        Jan: "01",
+        Fev: "02",
+        Mar: "03",
+        Abr: "04",
+        Mai: "05",
+        Jun: "06",
+        Jul: "07",
+        Ago: "08",
+        Set: "09",
+        Out: "10",
+        Nov: "11",
+        Dez: "12",
       };
 
-      const storedUserId = localStorage.getItem('userId');
+      const storedUserId = localStorage.getItem("userId");
       console.log("UserId from localStorage:", storedUserId);
 
       if (storedUserId) {
         try {
-          const response = await axios.get(`${baseURL}/getall/?user=${storedUserId}`);
-          console.log("response", response)
+          const response = await axios.get(
+            `${baseURL}/getall/?user=${storedUserId}`
+          );
+          console.log("response", response);
           const data = response.data;
           const filteredData = data.filter((item) => {
+            if (item.isInput) {
+              setSaldo(saldo + item.value);
+            }
             const itemDate = new Date(item.createdAt);
             const itemMonth = (itemDate.getMonth() + 1)
               .toString()
               .padStart(2, "0");
             const itemYear = itemDate.getFullYear().toString();
-            
+
             const monthCondition = selectedMonth
               ? itemMonth === monthMap[selectedMonth]
               : true;
@@ -111,6 +117,7 @@ export const Home = () => {
 
   return (
     <Container>
+      {console.log(saldo)}
       <Grid container spacing={0}>
         <Grid item xs={6}>
           <Account />

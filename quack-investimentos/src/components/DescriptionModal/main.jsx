@@ -51,7 +51,6 @@ export const DescriptionModal = ({ show, onHide, id }) => {
       onHide={onHide}
       style={{ bottom: "45em", position: "relative", zIndex: "1001" }}
     >
-      {console.log(data)}
       {data && (
         <Container sx={{ display: "flex", justifyContent: "center" }}>
           <div className={style.modal}>
