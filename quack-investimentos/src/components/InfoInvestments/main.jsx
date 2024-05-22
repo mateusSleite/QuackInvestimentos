@@ -104,23 +104,20 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
         </Grid>
         <div style={{ display: "flex", padding: "1.2em 1em 0 1em" }}>
           <Grid item xs={0.5}></Grid>
-          <Grid item xs={2.4}>
+          <Grid item xs={3.35}>
             <span className={style.spanCar}>Nome:</span>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={1.95}>
             <span className={style.spanCar}>Valor:</span>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={2.65}>
             <span className={style.spanCar}>Início:</span>
-          </Grid>
-          <Grid item xs={2}>
-            <span className={style.spanCar}>Fim:</span>
           </Grid>
           <Grid item xs={2.5}>
             <span className={style.spanCar}>Classificação</span>
           </Grid>
           <Grid item xs={1}>
-            <span className={style.spanCar}>Entrada/Saída</span>
+            <span className={style.spanCar}>Pago</span>
           </Grid>
         </div>
         <div
@@ -165,26 +162,23 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
                       />
                     </Grid>
                     <Grid item xs={11.5} sx={{ display: "flex", cursor: 'default' }} onClick={() => handleShowDetails(item._id)}>
-                      <Grid item xs={2.5}>
+                      <Grid item xs={3.5}>
                         <span className={style.spanInfo}>
                           {item.nameInvestment}
                         </span>
                       </Grid>
-                      <Grid item xs={1}>
+                      <Grid item xs={2}>
                         <span className={style.spanInfo}>{item.value}</span>
                       </Grid>
-                      <Grid item xs={2.1}>
+                      <Grid item xs={2.8}>
                         <span className={style.spanInfo}>{formatoData}</span>
-                      </Grid>
-                      <Grid item xs={2.1}>
-                        <span className={style.spanInfo}>{formatoDataEnd}</span>
                       </Grid>
                       <Grid item xs={2.6}>
                         <span className={style.spanInfo}>{item.category}</span>
                       </Grid>
                       <Grid item xs={1}>
                         <span className={style.spanInfo}>
-                          {item.isInput === null ? "" : item.isInput ? "Entrada" : "Saída"}
+                          {item.isInput === null ? "" : item.isInput ? "Sim" : "Não"}
                         </span>
                       </Grid>
                     </Grid>

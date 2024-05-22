@@ -76,15 +76,15 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                 ></CancelIcon>
               </div>
             </Grid>
-            <div style={{position: 'relative', bottom: '1.5em'}}>
+            <div style={{ position: "relative", bottom: "1.5em" }}>
               <Grid sx={{ display: "flex" }}>
                 <Grid
                   item
-                  xs={6}
-                  md={6}
+                  xs={12}
+                  md={12}
                   sx={{ display: "flex", justifyContent: "center" }}
                 >
-                  <div className={style.contorno}>
+                  <div className={style.contorno2}>
                     <div style={{ display: "flex" }}>
                       <Savings
                         style={{
@@ -96,11 +96,13 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                     <span>{data.nameInvestment}</span>
                   </div>
                 </Grid>
+              </Grid>
+              <Grid sx={{ display: "flex" }}>
                 <Grid
                   item
                   xs={6}
                   md={6}
-                  sx={{ display: "flex", justifyContent: "center" }}
+                  sx={{ display: "flex", justifyContent: 'flex-end' }}
                 >
                   <div className={style.contorno}>
                     <div style={{ display: "flex" }}>
@@ -112,6 +114,24 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                       <span className={style.label}>Valor</span>
                     </div>
                     <span>{data.value}</span>
+                  </div>
+                </Grid>
+                <Grid
+                  item
+                  xs={6}
+                  md={6}
+                  sx={{ display: "flex", justifyContent: 'flex-start' }}
+                >
+                  <div className={style.contorno}>
+                    <div style={{ display: "flex" }}>
+                      <CalendarMonthIcon
+                        style={{
+                          color: "#168990",
+                        }}
+                      ></CalendarMonthIcon>
+                      <span className={style.label}>Início</span>
+                    </div>
+                    <span>{formatDate(data.startDate)}</span>
                   </div>
                 </Grid>
               </Grid>
@@ -140,45 +160,7 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                   item
                   xs={6}
                   md={6}
-                  sx={{ display: "flex", justifyContent: "center" }}
-                >
-                  <div className={style.contorno}>
-                    <div style={{ display: "flex" }}>
-                      <CalendarMonthIcon
-                        style={{
-                          color: "#168990",
-                        }}
-                      ></CalendarMonthIcon>
-                      <span className={style.label}>Início</span>
-                    </div>
-                    <span>{formatDate(data.startDate)}</span>
-                  </div>
-                </Grid>
-                <Grid
-                  item
-                  xs={6}
-                  md={6}
-                  sx={{ display: "flex", justifyContent: "center" }}
-                >
-                  <div className={style.contorno}>
-                    <div style={{ display: "flex" }}>
-                      <CalendarMonthIcon
-                        style={{
-                          color: "#168990",
-                        }}
-                      ></CalendarMonthIcon>
-                      <span className={style.label}>Final</span>
-                    </div>
-                    <span>{formatDate(data.endDate)}</span>
-                  </div>
-                </Grid>
-              </Grid>
-              <Grid sx={{ display: "flex" }}>
-                <Grid
-                  item
-                  xs={6}
-                  md={6}
-                  sx={{ display: "flex", justifyContent: "center" }}
+                  sx={{ display: "flex", justifyContent: 'flex-end' }}
                 >
                   <div className={style.contorno}>
                     <div style={{ display: "flex" }}>
@@ -196,7 +178,7 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                   item
                   xs={6}
                   md={6}
-                  sx={{ display: "flex", justifyContent: "center" }}
+                  sx={{ display: "flex", justifyContent: 'flex-start' }}
                 >
                   <div className={style.contorno}>
                     <div style={{ display: "flex" }}>
@@ -205,10 +187,14 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                           color: "#168990",
                         }}
                       ></OutputIcon>
-                      <span className={style.label}>Entrada/Saída</span>
+                      <span className={style.label}>Pago</span>
                     </div>
                     <span>
-                      {data.isInput === null ? "" : data.isInput ? "Entrada" : "Saída"}
+                      {data.isInput === null
+                        ? ""
+                        : data.isInput
+                        ? "Sim"
+                        : "Não"}
                     </span>
                   </div>
                 </Grid>
