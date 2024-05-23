@@ -9,6 +9,16 @@ import { Container, Grid } from "@mui/material";
 const baseURL = "https://quack-investimentos-back.vercel.app/investments";
 
 export const Home = () => {
+  const currentMonth = new Date()
+    .toLocaleString('pt-BR', { month: 'short' })
+    .replace('.', '')
+    .charAt(0).toUpperCase() + new Date()
+    .toLocaleString('pt-BR', { month: 'short' })
+    .replace('.', '')
+    .slice(1);
+  
+  const currentYear = new Date().getFullYear().toString();
+  
   const [apiData, setApiData] = useState([]);
   const [attStatus, setAttStatus] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -18,8 +28,8 @@ export const Home = () => {
   const [despesaTotal, SetDespesaTotal] = useState(0);
   const [attInt, setAttInt] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
-  const [selectedMonth, setSelectedMonth] = useState("");
-  const [selectedYear, setSelectedYear] = useState("2024");
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,18 +62,6 @@ export const Home = () => {
           let newDespeasEntradas = 0;
           let newDespesasTotal = 0;
           const filteredData = data.filter((item) => {
-            if (item.classification != "RECEBIMENTOS") {
-              if (item.isInput) {
-                newDespeasEntradas += item.value
-              }
-              newDespesasTotal += item.value;
-            }
-            else {
-              if (item.isInput) {
-                newSaldoEntradas += item.value
-              }
-              newSaldoTotal += item.value;
-            }
             const itemDate = new Date(item.startDate);
             const itemMonth = (itemDate.getMonth() + 1)
               .toString()
@@ -74,11 +72,25 @@ export const Home = () => {
               ? itemMonth === monthMap[selectedMonth]
               : true;
 
-            const isValid = item.classification === selectedCategory &&
-              monthCondition &&
-              itemYear === selectedYear;
+            const yearCondition = itemYear === selectedYear;
 
-            return isValid;
+            const isValid = monthCondition && yearCondition;
+
+            if (isValid) {
+              if (item.classification !== "RECEBIMENTOS") {
+                if (item.isInput) {
+                  newDespeasEntradas += item.value;
+                }
+                newDespesasTotal += item.value;
+              } else {
+                if (item.isInput) {
+                  newSaldoEntradas += item.value;
+                }
+                newSaldoTotal += item.value;
+              }
+            }
+
+            return item.classification === selectedCategory && isValid;
           });
 
           const newData = filteredData.map((item, index) => ({
@@ -87,8 +99,8 @@ export const Home = () => {
           }));
 
           setApiData(newData);
-          setDespesasEntradas(newDespeasEntradas)
-          SetDespesaTotal(newDespesasTotal)
+          setDespesasEntradas(newDespeasEntradas);
+          SetDespesaTotal(newDespesasTotal);
           setSaldoEntradas(newSaldoEntradas);
           setSaldoTotal(newSaldoTotal);
         } catch (error) {
@@ -139,10 +151,10 @@ export const Home = () => {
     <Container>
       <Grid container spacing={0}>
         <Grid item xs={6}>
-          <Account saldo={saldoEntradas} despesas={despesasEntradas}/>
+          <Account saldo={saldoEntradas} despesas={despesasEntradas} />
         </Grid>
         <Grid item xs={6}>
-          <Revenuer saldoTotal={saldoTotal} saldoEntradas={saldoEntradas} despesaTotal={despesaTotal} despesasEntradas={despesasEntradas}/>
+          <Revenuer saldoTotal={saldoTotal} saldoEntradas={saldoEntradas} despesaTotal={despesaTotal} despesasEntradas={despesasEntradas} />
         </Grid>
         <Grid item xs={12}>
           <Months
