@@ -3,9 +3,8 @@ import { Account } from "../../components/Account/main";
 import { InfoInvestments } from "../../components/InfoInvestments/main";
 import { Months } from "../../components/Months/main";
 import { Revenuer } from "../../components/Revenuer";
-import style from "./style.module.css";
 import axios from "axios";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 const baseURL = "https://quack-investimentos-back.vercel.app/investments";
 
@@ -13,7 +12,11 @@ export const Home = () => {
   const [apiData, setApiData] = useState([]);
   const [attStatus, setAttStatus] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [saldo, setSaldo] = useState(0);
+  const [saldoEntradas, setSaldoEntradas] = useState(0);
+  const [saldoTotal, setSaldoTotal] = useState(0);
+  const [despesasEntradas, setDespesasEntradas] = useState(0);
+  const [despesaTotal, SetDespesaTotal] = useState(0);
+  const [attInt, setAttInt] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("RECEBIMENTOS");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("2024");
@@ -36,20 +39,32 @@ export const Home = () => {
       };
 
       const storedUserId = localStorage.getItem("userId");
-      console.log("UserId from localStorage:", storedUserId);
 
       if (storedUserId) {
         try {
           const response = await axios.get(
             `${baseURL}/getall/?user=${storedUserId}`
           );
-          console.log("response", response);
           const data = response.data;
+
+          let newSaldoEntradas = 0;
+          let newSaldoTotal = 0;
+          let newDespeasEntradas = 0;
+          let newDespesasTotal = 0;
           const filteredData = data.filter((item) => {
-            if (item.isInput) {
-              setSaldo(saldo + item.value);
+            if (item.classification != "RECEBIMENTOS") {
+              if (item.isInput) {
+                newDespeasEntradas += item.value
+              }
+              newDespesasTotal += item.value;
             }
-            const itemDate = new Date(item.createdAt);
+            else {
+              if (item.isInput) {
+                newSaldoEntradas += item.value
+              }
+              newSaldoTotal += item.value;
+            }
+            const itemDate = new Date(item.startDate);
             const itemMonth = (itemDate.getMonth() + 1)
               .toString()
               .padStart(2, "0");
@@ -59,18 +74,23 @@ export const Home = () => {
               ? itemMonth === monthMap[selectedMonth]
               : true;
 
-            return (
-              item.classification === selectedCategory &&
+            const isValid = item.classification === selectedCategory &&
               monthCondition &&
-              itemYear.toString() === selectedYear
-            );
+              itemYear === selectedYear;
+
+            return isValid;
           });
 
           const newData = filteredData.map((item, index) => ({
             ...item,
             index: index + 1,
           }));
+
           setApiData(newData);
+          setDespesasEntradas(newDespeasEntradas)
+          SetDespesaTotal(newDespesasTotal)
+          setSaldoEntradas(newSaldoEntradas);
+          setSaldoTotal(newSaldoTotal);
         } catch (error) {
           console.error("Erro ao buscar dados da API:", error);
         }
@@ -80,7 +100,7 @@ export const Home = () => {
     };
 
     fetchData();
-  }, [attStatus, selectedCategory, selectedMonth, selectedYear]);
+  }, [attStatus, selectedCategory, selectedMonth, selectedYear, attInt]);
 
   const handleCheckboxChange = (id) => {
     if (selectedItems.includes(id)) {
@@ -117,13 +137,12 @@ export const Home = () => {
 
   return (
     <Container>
-      {console.log(saldo)}
       <Grid container spacing={0}>
         <Grid item xs={6}>
-          <Account />
+          <Account saldo={saldoEntradas} despesas={despesasEntradas}/>
         </Grid>
         <Grid item xs={6}>
-          <Revenuer />
+          <Revenuer saldoTotal={saldoTotal} saldoEntradas={saldoEntradas} despesaTotal={despesaTotal} despesasEntradas={despesasEntradas}/>
         </Grid>
         <Grid item xs={12}>
           <Months
@@ -140,6 +159,7 @@ export const Home = () => {
             handleCheckboxChange={handleCheckboxChange}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
+            setAttInt={setAttInt}
           />
         </Grid>
       </Grid>

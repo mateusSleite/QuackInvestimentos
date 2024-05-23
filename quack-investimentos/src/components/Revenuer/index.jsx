@@ -15,12 +15,12 @@ const BudgetBar = ({ label, value, maxValue }) => {
   );
 };
 
-export const Revenuer = () => {
+export const Revenuer = ({saldoEntradas, saldoTotal, despesasEntradas, despesaTotal}) => {
   return (
     <div className={style.container}>
       <div>
-        <BudgetBar label="RECEITAS" value={4100} maxValue={7100} />
-        <BudgetBar label="DESPESAS" value={4990} maxValue={5540} />
+        <BudgetBar label="RECEITAS" value={saldoEntradas} maxValue={saldoTotal} />
+        <BudgetBar label="DESPESAS" value={despesasEntradas} maxValue={despesaTotal} />
       </div>
     </div>
   );

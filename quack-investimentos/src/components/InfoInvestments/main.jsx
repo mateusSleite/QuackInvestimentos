@@ -14,7 +14,7 @@ const handleNextPage = (setCurrentPage, totalPages) => {
 
 const baseURL = "https://quack-investimentos-back.vercel.app/investments";
 
-export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, selectedCategory, setSelectedCategory }) => {
+export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, selectedCategory, setSelectedCategory, setAttInt }) => {
   const options = ["RECEBIMENTOS", "DESPESAS FIXAS", "DESPESAS VARIAVEIS"];
 
   const [show, setShow] = useState(false);
@@ -42,6 +42,10 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
     const endIndex = startIndex + itemsPerPage;
     return apiData.slice(startIndex, endIndex);
   };
+
+  const attHome = () => {
+    setAttInt(prev => !prev);
+  }
 
   const formatDate = (data) => {
     const dia = ("0" + data.getDate()).slice(-2);
@@ -111,7 +115,7 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
             <span className={style.spanCar}>Valor:</span>
           </Grid>
           <Grid item xs={2.65}>
-            <span className={style.spanCar}>Início:</span>
+            <span className={style.spanCar}>Data:</span>
           </Grid>
           <Grid item xs={2.5}>
             <span className={style.spanCar}>Classificação</span>
@@ -221,11 +225,11 @@ export const InfoInvestments = ({ apiData, handleRemove, handleCheckboxChange, s
       </div>
       <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
         {overlay}
-        <CustomModal show={show} onHide={handleClose} selectedCategory={selectedCategory}/>
+        <CustomModal show={show} onHide={handleClose} selectedCategory={selectedCategory} attHome={attHome} />
       </Container>
       <Container sx={{ mt: 2 }} style={{ paddingRight: 0 }}>
         {overlayDetails}
-        <DescriptionModal show={showDetails} onHide={handleCloseDetails} id={id} />
+        <DescriptionModal show={showDetails} onHide={handleCloseDetails} id={id} attHome={attHome} />
       </Container>
     </Container>
   );

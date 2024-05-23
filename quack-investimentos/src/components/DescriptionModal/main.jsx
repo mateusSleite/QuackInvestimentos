@@ -12,8 +12,9 @@ import OutputIcon from "@mui/icons-material/Output";
 import { Savings } from "@mui/icons-material";
 import axios from "axios";
 
-export const DescriptionModal = ({ show, onHide, id }) => {
+export const DescriptionModal = ({ show, onHide, id, attHome }) => {
   const [data, setData] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,8 +34,32 @@ export const DescriptionModal = ({ show, onHide, id }) => {
   }, [show, id]);
 
   const Clean = () => {
-    setData("");
+    setData(null);
+    setEdit(false);
     onHide();
+  };
+
+  const handleEdit = () => {
+    setEdit(true);
+  };
+
+  const handleSave = async () => {
+    try {
+      await axios.put(`https://quack-investimentos-back.vercel.app/investments/update/?id=${id}`, data);
+      setEdit(false);
+      attHome();
+      onHide();
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const formatDate = (dateString) => {
@@ -42,7 +67,7 @@ export const DescriptionModal = ({ show, onHide, id }) => {
     const dia = ("0" + date.getDate()).slice(-2);
     const mes = ("0" + (date.getMonth() + 1)).slice(-2);
     const ano = date.getFullYear();
-    return `${dia}-${mes}-${ano}`;
+    return `${ano}-${mes}-${dia}`;
   };
 
   return (
@@ -56,7 +81,7 @@ export const DescriptionModal = ({ show, onHide, id }) => {
           <div className={style.modal}>
             <Grid>
               <div className={style.details}>
-                <img className={style.detailsImg} src={details}></img>
+                <img className={style.detailsImg} src={details} alt="Detalhes"></img>
                 <span className={style.detailsText}>DETALHES</span>
               </div>
             </Grid>
@@ -92,7 +117,17 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                       ></Savings>
                       <span className={style.label}>Nome</span>
                     </div>
-                    <span>{data.nameInvestment}</span>
+                    {edit ? (
+                      <input
+                        type="text"
+                        name="nameInvestment"
+                        value={data.nameInvestment}
+                        onChange={handleChange}
+                        className={style.transparentInput}
+                      />
+                    ) : (
+                      <span className={style.displayValue}>{data.nameInvestment}</span>
+                    )}
                   </div>
                 </Grid>
               </Grid>
@@ -112,7 +147,17 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                       ></PaidIcon>
                       <span className={style.label}>Valor</span>
                     </div>
-                    <span>{data.value}</span>
+                    {edit ? (
+                      <input
+                        type="text"
+                        name="value"
+                        value={data.value}
+                        onChange={handleChange}
+                        className={style.transparentInput}
+                      />
+                    ) : (
+                      <span className={style.displayValue}>{data.value}</span>
+                    )}
                   </div>
                 </Grid>
                 <Grid
@@ -128,9 +173,20 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                           color: "#168990",
                         }}
                       ></CalendarMonthIcon>
-                      <span className={style.label}>Início</span>
+                      <span className={style.label}>Data</span>
                     </div>
-                    <span>{formatDate(data.startDate)}</span>
+                    {edit ? (
+                      <input
+                        type="date"
+                        name="startDate"
+                        value={formatDate(data.startDate)}
+                        onChange={handleChange}
+                        className={style.transparentInput}
+                        style={{fontSize: '1.2em'}}
+                      />
+                    ) : (
+                      <span className={style.displayValue}>{formatDate(data.startDate)}</span>
+                    )}
                   </div>
                 </Grid>
               </Grid>
@@ -150,7 +206,17 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                       ></DescriptionIcon>
                       <span className={style.label}>Descrição</span>
                     </div>
-                    <span>{data.description}</span>
+                    {edit ? (
+                      <textarea
+                        name="description"
+                        value={data.description}
+                        onChange={handleChange}
+                        className={style.transparentInput}
+                        style={{ resize: 'none' }}
+                      />
+                    ) : (
+                      <span className={style.displayValue}>{data.description}</span>
+                    )}
                   </div>
                 </Grid>
               </Grid>
@@ -170,7 +236,17 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                       ></CategoryIcon>
                       <span className={style.label}>Categoria</span>
                     </div>
-                    <span>{data.category}</span>
+                    {edit ? (
+                      <input
+                        type="text"
+                        name="category"
+                        value={data.category}
+                        onChange={handleChange}
+                        className={style.transparentInput}
+                      />
+                    ) : (
+                      <span className={style.displayValue}>{data.category}</span>
+                    )}
                   </div>
                 </Grid>
                 <Grid
@@ -188,15 +264,34 @@ export const DescriptionModal = ({ show, onHide, id }) => {
                       ></OutputIcon>
                       <span className={style.label}>Pago</span>
                     </div>
-                    <span>
-                      {data.isInput === null
-                        ? ""
-                        : data.isInput
-                        ? "Sim"
-                        : "Não"}
-                    </span>
+                    {edit ? (
+                      <select
+                        name="isInput"
+                        value={data.isInput}
+                        onChange={handleChange}
+                        className={style.transparentInput}
+                      >
+                        <option value={true}>Sim</option>
+                        <option value={false}>Não</option>
+                      </select>
+                    ) : (
+                      <span className={style.displayValue}>
+                        {data.isInput === null ? "" : data.isInput ? "Sim" : "Não"}
+                      </span>
+                    )}
                   </div>
                 </Grid>
+              </Grid>
+              <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                {edit ? (
+                  <button className={style.button} onClick={handleSave}>
+                    Salvar
+                  </button>
+                ) : (
+                  <button className={style.button} onClick={handleEdit}>
+                    Editar
+                  </button>
+                )}
               </Grid>
             </div>
           </div>

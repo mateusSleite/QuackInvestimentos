@@ -5,7 +5,7 @@ import style from "./style.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const CustomModal = ({ show, onHide, selectedCategory }) => {
+export const CustomModal = ({ show, onHide, selectedCategory, attHome }) => {
   const [nameInvestment, setnameInvestment] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(null);
@@ -39,19 +39,16 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
       isInput,
     };
 
-    console.log(json)
-
     try {
       console.log("JSON enviado:", json);
       await axios.post(
         "https://quack-investimentos-back.vercel.app/investments/create",
         json
       );
+      attHome();
       onHide();
-      window.location.reload();
     } catch (error) {
       console.log("Erro ao criar investimento:", error);
-      console.log(json)
     }
   };
 
@@ -108,7 +105,7 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
                 </Grid>            
               </Grid>
               <Grid container>
-              <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6}>
                   <div className={style.junLabel}>
                     <span className={style.label}>Valor:</span>
                     <input
@@ -119,7 +116,7 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <div className={style.junLabel}>
-                    <span className={style.label}>Data Início:</span>
+                    <span className={style.label}>Data:</span>
                     <input
                       type="date"
                       className={style.inputDate}
@@ -147,7 +144,7 @@ export const CustomModal = ({ show, onHide, selectedCategory }) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <div className={style.junLabel}>
-                    <span className={style.label}>Entrada:</span>
+                    <span className={style.label}>Pago:</span>
                     <select
                       name="select"
                       className={style.select}
