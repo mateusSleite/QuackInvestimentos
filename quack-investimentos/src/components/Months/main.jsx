@@ -14,8 +14,6 @@ export const Months = ({ handleMonthSelect, handleYearSelect, selectedYear, sele
       <Grid container spacing={2}>
         <Grid item xs={1}>
           <select name="select" className={style.select} value={selectedYear} onChange={handleYearSelect}>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
             <option value="2024">2024</option>
           </select>
         </Grid>
